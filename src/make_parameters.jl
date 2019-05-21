@@ -274,12 +274,17 @@ function model_parameters(A;
   # Step 12 -- Metabolic rate
   m_producer = minimum(parameters[:bodymass][is_producer])
   parameters[:m_producer] = m_producer
+
+  ind_m_producer = findall(x -> x == m_producer, parameters[:bodymass])
+  bodymass = parameters[:bodymass]
+
   body_size_relative = parameters[:bodymass] ./ parameters[:m_producer]
   # body_size_scaled = body_size_relative.^-0.25
   x = metabolicrate(body_size_relative, T, parameters)
 
   # Step 13 -- Growth rate
-  r = growthrate(body_size_relative, T, parameters)
+  r_unscaled = growthrate(bodymass, T, parameters)
+  r = r_unscaled / r_unscaled[ind_m_producer]
 
   # Step 14 -- Handling time
   handling_t = handlingtime(body_size_relative, T, parameters)
