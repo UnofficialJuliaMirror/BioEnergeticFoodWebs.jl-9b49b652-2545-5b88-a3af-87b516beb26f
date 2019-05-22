@@ -271,11 +271,14 @@ function model_parameters(A;
   # a[.!parameters[:vertebrates]] = parameters[:a_invertebrate]
   # a[is_producer] = parameters[:a_producer]
 
-  # Step 12 -- Metabolic rate
+  # Step 12 -- Find the smallest producer for rates scaling
   m_producer = minimum(parameters[:bodymass][is_producer])
   parameters[:m_producer] = m_producer
 
   ind_m_producer = findall(x -> x == m_producer, parameters[:bodymass])
+  if length(ind_m_producer) > 1
+       ind_m_producer = ind_m_producer[1]
+  end
   bodymass = parameters[:bodymass]
 
   #body_size_relative = parameters[:bodymass] ./ parameters[:m_producer]
