@@ -297,10 +297,10 @@ function model_parameters(A;
   y_unscaled = 1 ./ handling_t
 
   #if handlingtime == NoEffectTemperature(:handlingtime)
-  if size(y_unscaled)[2] == 1
-    y = y_unscaled
-  else
+  if size(y_unscaled) == size(A)
     y = (y_unscaled ./ r_unscaled[ind_m_producer]) ./ x[ind_m_producer]
+  else
+    y = y_unscaled
   end
 
   # Step 15 -- Attack rate
