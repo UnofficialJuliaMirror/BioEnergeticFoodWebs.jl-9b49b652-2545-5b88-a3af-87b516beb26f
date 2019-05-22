@@ -280,21 +280,25 @@ function model_parameters(A;
 
   body_size_relative = parameters[:bodymass] ./ parameters[:m_producer]
   # body_size_scaled = body_size_relative.^-0.25
-  x = metabolicrate(body_size_relative, T, parameters)
 
   # Step 13 -- Growth rate
   r_unscaled = growthrate(bodymass, T, parameters)
-  r = r_unscaled / r_unscaled[ind_m_producer]
+  r = r_unscaled ./ r_unscaled[ind_m_producer]
+
+  # Metabolic rate
+  x_unscaled = metabolicrate(bodymass, T, parameters)
+  x = x_unscaled ./ r_unscaled[ind_m_producer]
 
   # Step 14 -- Handling time
-  handling_t = handlingtime(body_size_relative, T, parameters)
+  handling_t = handlingtime(bodymass, T, parameters)
   parameters[:ht] = handling_t
 
   # Step 16 -- Maximum relative consumption rate
-  y = 1 ./ handling_t
+  y_unscaled = 1 ./ handling_t
+  y = (y_unscaled ./ r_unscaled[ind_m_producer]) ./ x[ind_m_producer]
 
   # Step 15 -- Attack rate
-  attack_r = attackrate(body_size_relative, T, parameters)
+  attack_r = attackrate(bodymass, T, parameters)
 
   # Step 17 -- Half-saturation constant
   Γ = 1 ./ (attack_r .* handling_t)
