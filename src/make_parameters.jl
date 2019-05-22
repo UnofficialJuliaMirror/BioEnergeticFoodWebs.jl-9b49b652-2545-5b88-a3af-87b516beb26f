@@ -295,7 +295,9 @@ function model_parameters(A;
 
   # Step 16 -- Maximum relative consumption rate
   y_unscaled = 1 ./ handling_t
-  if handlingtime == :NoEffectTemperature(:handlingtime)
+
+  #if handlingtime == NoEffectTemperature(:handlingtime)
+  if size(y_unscaled)[2] == 1
     y = y_unscaled
   else
     y = (y_unscaled ./ r_unscaled[ind_m_producer]) ./ x[ind_m_producer]
