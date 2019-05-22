@@ -278,7 +278,7 @@ function model_parameters(A;
   ind_m_producer = findall(x -> x == m_producer, parameters[:bodymass])
   bodymass = parameters[:bodymass]
 
-  body_size_relative = parameters[:bodymass] ./ parameters[:m_producer]
+  #body_size_relative = parameters[:bodymass] ./ parameters[:m_producer]
   # body_size_scaled = body_size_relative.^-0.25
 
   # Step 13 -- Growth rate
@@ -295,7 +295,7 @@ function model_parameters(A;
 
   # Step 16 -- Maximum relative consumption rate
   y_unscaled = 1 ./ handling_t
-  if handlingtime == NoEffectTemperature(:handlingtime)
+  if handlingtime == :NoEffectTemperature(:handlingtime)
     y = y_unscaled
   else
     y = (y_unscaled ./ r_unscaled[ind_m_producer]) ./ x[ind_m_producer]
