@@ -151,7 +151,7 @@ function no_effect_handlingt(default_temp_parameters = (y_vertebrate = 4.0, y_in
 	else
 	  temperature_param = default_temp_parameters
 	end
-    return (bodymass, T, p) ->  1 ./ (temperature_param.y_vertebrate .* (p[:vertebrates] .& .!p[:is_producer]) + temperature_param.y_invertebrate * (.!p[:vertebrates] .& .!p[:is_producer]))
+    return (bodymass, T, p) ->  (1 ./ (temperature_param.y_vertebrate .* (p[:vertebrates] .& .!p[:is_producer]) + temperature_param.y_invertebrate * (.!p[:vertebrates] .& .!p[:is_producer])))
 end
 
 """
