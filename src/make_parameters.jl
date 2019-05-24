@@ -301,7 +301,7 @@ function model_parameters(A;
 
   #if handlingtime == NoEffectTemperature(:handlingtime)
   if size(y_unscaled) == size(A)
-    y = (y_unscaled ./ r_unscaled[ind_m_producer]) ./ x[ind_m_producer]
+    y = (y_unscaled ./ r_unscaled[ind_m_producer]) ./ x
   else
     y = y_unscaled
   end
