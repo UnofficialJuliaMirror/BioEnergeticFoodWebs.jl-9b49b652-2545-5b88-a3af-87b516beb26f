@@ -293,21 +293,18 @@ function model_parameters(A;
   x = x_unscaled ./ r_unscaled[ind_m_producer]
 
   # Step 14 -- Handling time
-  handling_t = handlingtime(bodymass, T, parameters)
-  parameters[:ht] = handling_t
+  handling_t_unscaled = handlingtime(bodymass, T, parameters)
+  parameters[:ht_uns] = handling_t_unscaled
 
   # Step 16 -- Maximum relative consumption rate
-  y_unscaled = 1 ./ handling_t
+  y_unscaled = 1 ./ handling_t_unscaled
 
   #if handlingtime == NoEffectTemperature(:handlingtime)
   if size(y_unscaled) == size(A)
-    y = (y_unscaled ./ r_unscaled[ind_m_producer]) ./ x
+    y = y_unscaled ./ x_unscaled
   else
     y = y_unscaled
   end
-
-  # Step 15 -- Attack rate
-  attack_r = attackrate(bodymass, T, parameters)
 
   # Step 17 -- Half-saturation constant
   Γ = 1 ./ (attack_r .* handling_t)
