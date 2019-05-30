@@ -306,7 +306,8 @@ function model_parameters(A;
     y = y_unscaled
   end
 
-  
+  # Step 15 -- Attack rate
+  attack_r = attackrate(bodymass, T, parameters)
 
   # Step 17 -- Half-saturation constant
   Γ = 1 ./ (attack_r .* handling_t)
