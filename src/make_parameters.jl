@@ -306,6 +306,8 @@ function model_parameters(A;
     y = y_unscaled
   end
 
+  
+
   # Step 17 -- Half-saturation constant
   Γ = 1 ./ (attack_r .* handling_t)
   Γ[isnan.(Γ)] .= 0.0
