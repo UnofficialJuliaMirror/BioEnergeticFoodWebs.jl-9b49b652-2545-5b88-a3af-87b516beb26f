@@ -293,11 +293,11 @@ function model_parameters(A;
   x = x_unscaled ./ r_unscaled[ind_m_producer]
 
   # Step 14 -- Handling time
-  handling_t_unscaled = handlingtime(bodymass, T, parameters)
-  parameters[:ht_uns] = handling_t_unscaled
+  handling_t = handlingtime(bodymass, T, parameters)
+  parameters[:ht] = handling_t
 
   # Step 16 -- Maximum relative consumption rate
-  y_unscaled = 1 ./ handling_t_unscaled
+  y_unscaled = 1 ./ handling_t
 
   #if handlingtime == NoEffectTemperature(:handlingtime)
   if size(y_unscaled) == size(A)
